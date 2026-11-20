@@ -7,57 +7,100 @@
 <title>GOLDEN EMPIRE AI</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
-header{padding:22px 16px;text-align:center;border-bottom:1px solid #393024}
+body{margin:0;background:#101010;color:white;font-family:Arial}
+header{text-align:center;padding:22px;border-bottom:1px solid #594727}
 .logo{color:#e5bd63;font-size:25px;font-weight:bold}
-nav{margin-top:15px}
-button{cursor:pointer;border:0;border-radius:9px;padding:12px;background:#d6ad53;color:#111;font-weight:bold}
-.hero{text-align:center;padding:55px 18px 35px}
-.hero h1{font-size:34px;color:#e5bd63}
-.hero p{line-height:1.6;color:#ddd}
-.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:18px;max-width:650px;margin:auto}
-.tool{background:#202020;border:1px solid #594727;border-radius:14px;padding:23px 12px;text-align:center}
-.tool h3{color:#e5bd63}
-.tool p{font-size:13px;color:#ccc}
-footer{text-align:center;padding:30px;color:#aaa;font-size:13px}
+main{max-width:650px;margin:auto;padding:20px}
+h1,h2{color:#e5bd63;text-align:center}
+p{color:#ccc;line-height:1.6;text-align:center}
+label{display:block;margin-top:17px;margin-bottom:7px}
+input,select,textarea{
+width:100%;padding:13px;border-radius:8px;
+border:1px solid #80652e;background:#202020;color:white;
+font-size:16px
+}
+button{background:#d6ad53;color:#111;border:0;
+padding:14px;border-radius:9px;font-weight:bold;
+font-size:15px;cursor:pointer;margin-top:16px;width:100%}
+#result{background:#202020;border:1px solid #594727;
+padding:15px;border-radius:10px;margin-top:18px;
+white-space:pre-wrap;line-height:1.6;display:none}
+footer{text-align:center;color:#aaa;padding:25px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">GE GOLDEN EMPIRE AI</div>
-<nav><button onclick="toggleLanguage()">English / Luganda</button></nav>
+<p>CREATE • PROMOTE • GROW</p>
 </header>
-<section class="hero">
-<h1 id="heading">CREATE YOUR MUSIC WORLD</h1>
-<p id="intro">AI tools for artists, creators and music promoters.</p>
-<button onclick="document.getElementById('tools').scrollIntoView()">Explore AI Tools</button>
-</section>
-<section class="tools" id="tools">
-<div class="tool">
-<h3>🎨 Artwork Maker</h3>
-<p>Create music cover artwork</p>
-</div>
-<div class="tool">
-<h3>🎬 AI Video Maker</h3>
-<p>Create music promo videos</p>
-</div>
-<div class="tool">
-<h3>🎵 Audio Studio</h3>
-<p>Prepare your music files</p>
-</div>
-<div class="tool">
-<h3>📢 Music Promotion</h3>
-<p>Promote your music worldwide</p>
-</div>
-</section>
-<footer>GOLDEN EMPIRE AI © 2026<br>CREATE • PROMOTE • GROW</footer>
+
+<main>
+<h1>🎨 AI ARTWORK MAKER</h1>
+<p>Create a professional music cover prompt for your song.</p>
+
+<label>Song Title</label>
+<input id="song" placeholder="Enter song title">
+
+<label>Artist Name</label>
+<input id="artist" placeholder="Enter artist name">
+
+<label>Artwork Style</label>
+<select id="style">
+<option>Luxury Gold and Black</option>
+<option>Modern African Music</option>
+<option>Street Fashion</option>
+<option>Romantic</option>
+<option>Nature and Cinematic</option>
+<option>Professional Studio</option>
+</select>
+
+<label>Extra Description</label>
+<textarea id="details" rows="4" placeholder="Describe what you want on your artwork"></textarea>
+
+<button onclick="makePrompt()">CREATE ARTWORK PROMPT</button>
+
+<div id="result"></div>
+<button id="copy" onclick="copyPrompt()" style="display:none">COPY PROMPT</button>
+</main>
+
+<footer>GOLDEN EMPIRE AI © 2026</footer>
+
 <script>
-let luganda=false;
-function toggleLanguage(){
-luganda=!luganda;
-document.getElementById('heading').textContent=luganda?'TONDawo ENSI YO EY’ENNYIMBA':'CREATE YOUR MUSIC WORLD';
-document.getElementById('intro').textContent=luganda?'AI tools ez’ abayimbi, abatondawo n’abapromota ennyimba.':'AI tools for artists, creators and music promoters.';
+function makePrompt(){
+const song=document.getElementById("song").value.trim();
+const artist=document.getElementById("artist").value.trim();
+const style=document.getElementById("style").value;
+const details=document.getElementById("details").value.trim();
+
+if(!song || !artist){
+alert("Please enter Song Title and Artist Name.");
+return;
+}
+
+const prompt=`Create a professional square music cover artwork.
+Song title: ${song}
+Artist name: ${artist}
+Style: ${style}
+Description: ${details || "Create a beautiful original African music cover."}
+Use elegant typography, high-quality composition,
+clear readable song title and artist name.
+Make it suitable for digital music distribution.
+Do not add extra words or logos.`;
+
+document.getElementById("result").textContent=prompt;
+document.getElementById("result").style.display="block";
+document.getElementById("copy").style.display="block";
+}
+
+function copyPrompt(){
+const text=document.getElementById("result").textContent;
+if(navigator.clipboard){
+navigator.clipboard.writeText(text).then(()=>alert("Prompt copied!"));
+}else{
+alert("Please select and copy the prompt manually.");
+}
 }
 </script>
 </body>
 </html>
+
