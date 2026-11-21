@@ -1,1 +1,347 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLDEN EMPIRE AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#0b0b0b;
+color:#fff;
+font-family:Arial,sans-serif
+}
+header{
+background:#111;
+border-bottom:1px solid #b58a35;
+padding:22px 12px;
+text-align:center
+}
+.logo{
+color:#d9b45b;
+font-size:26px;
+font-weight:bold;
+letter-spacing:2px
+}
+header p{
+color:#aaa;
+font-size:12px;
+letter-spacing:3px
+}
+main{
+max-width:900px;
+margin:auto;
+padding:20px
+}
+h1,h2{
+color:#e0b95c;
+text-align:center
+}
+p{
+color:#bbb;
+line-height:1.6
+}
+button{
+width:100%;
+padding:14px;
+margin-top:12px;
+border:1px solid #b48a38;
+border-radius:8px;
+background:#d4ad54;
+color:#111;
+font-weight:bold;
+font-size:15px;
+cursor:pointer
+}
+button:hover{
+background:#f0ce7c
+}
+input,select,textarea{
+width:100%;
+padding:13px;
+margin-top:8px;
+border:1px solid #554522;
+border-radius:8px;
+background:#1c1c1c;
+color:#fff;
+font-size:16px
+}
+label{
+display:block;
+margin-top:16px;
+color:#d7b35b
+}
+.tools{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:22px
+}
+.tool{
+padding:15px 8px;
+border:1px solid #514120;
+border-radius:10px;
+background:#171717;
+text-align:center;
+color:#d9b45b;
+font-weight:bold;
+cursor:pointer
+}
+.tool:hover{
+background:#292318
+}
+.panel{
+display:none;
+background:#151515;
+border:1px solid #594725;
+padding:18px;
+border-radius:12px;
+margin-top:20px
+}
+#result{
+display:none;
+background:#202020;
+padding:15px;
+border:1px solid #665126;
+border-radius:9px;
+margin-top:18px;
+white-space:pre-wrap;
+line-height:1.6;
+overflow-wrap:anywhere
+}
+footer{
+text-align:center;
+padding:30px 12px;
+color:#888;
+border-top:1px solid #302817;
+margin-top:30px
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">GE GOLDEN EMPIRE AI</div>
+<p>CREATE • INNOVATE • PROMOTE • GROW</p>
+</header>
+
+<main>
+
+<h1>GLOBAL AI CREATOR STUDIO</h1>
+<p style="text-align:center">
+Your creative world. One AI studio.
+</p>
+
+<div class="tools">
+
+<div class="tool" onclick="openTool('Artwork Studio')">🎨 Artwork Studio</div>
+<div class="tool" onclick="openTool('Image Studio')">🖼 Image Studio</div>
+<div class="tool" onclick="openTool('Video Studio')">🎬 Video Studio</div>
+<div class="tool" onclick="openTool('Audio Studio')">🎵 Audio Studio</div>
+<div class="tool" onclick="openTool('AI Writer')">✍️ AI Writer</div>
+<div class="tool" onclick="openTool('Social Media Studio')">📱 Social Media</div>
+<div class="tool" onclick="openTool('YouTube Growth')">▶ YouTube Growth</div>
+<div class="tool" onclick="openTool('Avatar Studio')">👤 Avatar Studio</div>
+<div class="tool" onclick="openTool('Creative Idea Lab')">💡 Idea Lab</div>
+<div class="tool" onclick="openTool('Business Studio')">💼 Business Studio</div>
+
+</div>
+
+<div id="panel" class="panel">
+
+<h2 id="toolTitle">AI TOOL</h2>
+
+<label>Language</label>
+<select id="language">
+<option>English</option>
+<option>Luganda</option>
+<option>Swahili</option>
+<option>French</option>
+<option>Spanish</option>
+<option>Arabic</option>
+<option>Portuguese</option>
+</select>
+
+<label>Project Name / Title</label>
+<input id="project" placeholder="Enter project name">
+
+<label>Style</label>
+<select id="style">
+<option>Professional</option>
+<option>Luxury Gold & Black</option>
+<option>Modern</option>
+<option>African Creative</option>
+<option>Cinematic</option>
+<option>Minimal</option>
+<option>Vibrant</option>
+<option>Realistic</option>
+</select>
+
+<label>Describe Your Idea</label>
+<textarea id="details" rows="5"
+placeholder="Describe what you want to create..."></textarea>
+
+<button onclick="generateIdea()">GENERATE CREATIVE PROMPT</button>
+
+<div id="result"></div>
+
+<button id="copyBtn" onclick="copyResult()" style="display:none">
+COPY RESULT
+</button>
+
+</div>
+
+</main>
+
+<footer>
+GOLDEN EMPIRE AI © 2026<br>
+CREATE • INNOVATE • PROMOTE • GROW
+</footer>
+</body>
+</html>
+
+<script>
+let activeTool="";
+
+function openTool(name){
+activeTool=name;
+document.getElementById("panel").style.display="block";
+document.getElementById("toolTitle").textContent=name;
+document.getElementById("result").style.display="none";
+document.getElementById("copyBtn").style.display="none";
+document.getElementById("project").value="";
+document.getElementById("details").value="";
+document.getElementById("panel").scrollIntoView({behavior:"smooth"});
+}
+
+function generateIdea(){
+const language=document.getElementById("language").value;
+const project=document.getElementById("project").value.trim();
+const style=document.getElementById("style").value;
+const details=document.getElementById("details").value.trim();
+
+if(!details){
+alert("Please describe your creative idea first.");
+return;
+}
+
+let output="";
+
+if(activeTool==="Artwork Studio"){
+output=`Create a high-quality professional artwork.
+Project: ${project}
+Style: ${style}
+Description: ${details}
+Language: ${language}
+Create an original, detailed, beautiful composition.
+Use professional lighting, balanced design and clear details.
+Avoid unwanted text, watermarks and logos.`;
+}
+
+else if(activeTool==="Image Studio"){
+output=`Create an original image based on this concept.
+Project: ${project}
+Style: ${style}
+Idea: ${details}
+Language: ${language}
+Produce a visually detailed, creative, high-quality image concept.`;
+}
+
+else if(activeTool==="Video Studio"){
+output=`Create a cinematic video concept.
+Project: ${project}
+Style: ${style}
+Scene idea: ${details}
+Language: ${language}
+Include scene descriptions, camera movement, transitions,
+lighting, atmosphere and a clear visual storyline.`;
+}
+
+else if(activeTool==="Audio Studio"){
+output=`Create an audio production concept.
+Project: ${project}
+Style: ${style}
+Idea: ${details}
+Language: ${language}
+Describe the sound, mood, instruments, rhythm,
+voice direction and audio production approach.`;
+}
+
+else if(activeTool==="AI Writer"){
+output=`Write creative professional content.
+Title: ${project}
+Style: ${style}
+Topic: ${details}
+Language: ${language}
+Make the content clear, original, engaging and well organized.`;
+}
+
+else if(activeTool==="Social Media Studio"){
+output=`Create social media content.
+Project: ${project}
+Style: ${style}
+Details: ${details}
+Language: ${language}
+Include a catchy caption, a short description,
+a call to action and relevant hashtags.`;
+}
+
+else if(activeTool==="YouTube Growth"){
+output=`Create a YouTube publishing plan.
+Video: ${project}
+Style: ${style}
+Details: ${details}
+Language: ${language}
+Generate title ideas, video description, keywords,
+hashtags, thumbnail concept and audience engagement ideas.`;
+}
+
+else if(activeTool==="Avatar Studio"){
+output=`Create an original avatar or character concept.
+Name/Project: ${project}
+Style: ${style}
+Description: ${details}
+Language: ${language}
+Describe appearance, clothing, personality, background
+and visual design.`;
+}
+
+else if(activeTool==="Creative Idea Lab"){
+output=`Develop a creative idea.
+Project: ${project}
+Style: ${style}
+Idea: ${details}
+Language: ${language}
+Expand it into an original concept with creative directions
+and practical next steps.`;
+}
+
+else if(activeTool==="Business Studio"){
+output=`Develop a business concept.
+Project: ${project}
+Style: ${style}
+Description: ${details}
+Language: ${language}
+Provide a business concept, target audience,
+branding direction and promotional ideas.`;
+}
+
+document.getElementById("result").textContent=output;
+document.getElementById("result").style.display="block";
+document.getElementById("copyBtn").style.display="block";
+}
+
+function copyResult(){
+const text=document.getElementById("result").textContent;
+if(navigator.clipboard){
+navigator.clipboard.writeText(text)
+.then(()=>alert("Copied successfully!"))
+.catch(()=>alert("Please copy the text manually."));
+}else{
+alert("Please copy the text manually.");
+}
+}
+</script>
